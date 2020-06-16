@@ -1,0 +1,1 @@
+export { default as ChannelAdminComponent } from "./components/channelAdmin";

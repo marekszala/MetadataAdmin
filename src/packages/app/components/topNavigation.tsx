@@ -6,7 +6,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-
+import { RiksTvApp } from "./../state";
+import { Link, withRouter, RouteComponentProps } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 3,
@@ -19,8 +20,17 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const TopNavigationBar = (props) => {
+type TopNavigationBarProps = {
+    currentApp: RiksTvApp;
+    onNavigationMenuClicked: (newApp: RiksTvApp) => void;
+};
+
+const TopNavigationBar = (props: TopNavigationBarProps & RouteComponentProps): JSX.Element => {
     const classes = useStyles();
+    const handleClick = (app: RiksTvApp): () => void => () => {
+        props.history.push("/" + app);
+        props.onNavigationMenuClicked(app);
+    }
 
     return (
         <div className={classes.root}>
@@ -30,7 +40,18 @@ const TopNavigationBar = (props) => {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" className={classes.title}>
-                        <Button color="inherit">Metadata Admin</Button>
+                        <Button
+                            color="inherit"
+                            variant={props.currentApp === "metadataAdmin" ? "outlined" : null}
+                            onClick={handleClick("metadataAdmin")}>
+                            Metadata Admin
+                            </Button>
+                        <Button
+                            color="inherit"
+                            variant={props.currentApp === "channelAdmin" ? "outlined" : null}
+                            onClick={handleClick("channelAdmin")}>
+                            Channel Admin
+                            </Button>
                     </Typography>
                     <Button color="inherit">Login</Button>
                 </Toolbar>
@@ -39,4 +60,4 @@ const TopNavigationBar = (props) => {
     );
 }
 
-export default TopNavigationBar;
+export default withRouter(TopNavigationBar);

@@ -1,7 +1,7 @@
-export type Route = "" | "metadataAdmin";
+export type RiksTvApp = "" | "metadataAdmin" | "channelAdmin";
 
 export interface NavigationState {
-    currentRoute: Route;
+    currentRoute: RiksTvApp;
 }
 
 export interface AppViewState {

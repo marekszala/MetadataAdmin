@@ -3,14 +3,14 @@ import {
     Action,
 } from "../../../shared";
 import { NavigationState } from "../../state";
-import { openMetadataAdminClicked } from "../../actions/user/navigationAction";
+import { appNavigationMenuEntryClicked } from "../../actions/user/navigationAction";
 
 export default buildReducer<NavigationState>()
-    .handle(openMetadataAdminClicked, (state, _) => {
+    .handle(appNavigationMenuEntryClicked, (state, action) => {
 
         return {
             ...state,
-            currentRoute: "metadataAdmin"
+            currentRoute: action.payload
         };
     })
     .done({

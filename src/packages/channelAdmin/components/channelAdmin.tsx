@@ -1,12 +1,13 @@
 import * as React from "react";
 import { safeRender } from "./../../shared";
 
-const MetadataAdmin = () => {
+const ChannelAdmin = () => {
     return (
         <div>
-            Metadata Admin
+            Channel Admin
         </div>
     );
 }
 
-export default safeRender(MetadataAdmin, "MetadataAdmin")
+export default safeRender(ChannelAdmin, "ChannelAdmin")
+

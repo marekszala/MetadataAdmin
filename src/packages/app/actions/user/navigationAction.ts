@@ -1,3 +1,4 @@
-import { Action, createActionFactory, Feature } from "../../../shared";
+import { createActionFactory, Feature } from "../../../shared";
+import { RiksTvApp } from "./../../state";
 
-export const openMetadataAdminClicked = createActionFactory<void>("OpenMetadataAdminClicked", Feature.Framework);
+export const appNavigationMenuEntryClicked = createActionFactory<RiksTvApp>("OpenMetadataAdminClicked", Feature.Framework);
