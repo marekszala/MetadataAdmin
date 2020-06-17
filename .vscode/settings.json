@@ -1,0 +1,8 @@
+{
+    "relativePath.excludedExtensions": [
+        ".ts",
+        ".tsx",
+
+        ".js"
+    ]
+}

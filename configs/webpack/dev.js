@@ -12,6 +12,7 @@ module.exports = merge(commonConfig, {
     './index.tsx' // the entry point of our app
   ],
   devServer: {
+    historyApiFallback: true,
     hot: true, // enable HMR on the server
   },
   devtool: 'cheap-module-eval-source-map',
