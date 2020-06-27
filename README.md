@@ -38,8 +38,8 @@
 
 Command | Description
 --- | ---
-`yarn run start-dev` | Build app continuously (HMR enabled) and serve @ `http://localhost:8080`
-`yarn run start-prod` | Build app once (HMR disabled) to `/dist/` and serve @ `http://localhost:3000`
+`yarn run start-dev` | Build app continuously (HMR enabled) and serve @ `http://localhost:55573`
+`yarn run start-prod` | Build app once (HMR disabled) to `/dist/` and serve @ `http://localhost:55573`
 `yarn run build` | Build app to `/dist/`
 `yarn run test` | Run tests
 `yarn run lint` | Run Typescript linter

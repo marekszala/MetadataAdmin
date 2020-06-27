@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 import { safeRender } from "./../../shared";
 import { openRiksTVApp } from "./../actionCreators/navigationActionsCreator";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-
+import makeMainRoutes from './../routes';
 import { MetadataAdminComponent } from "./../../metadataAdmin";
 import { ChannelAdminComponent } from "./../../channelAdmin";
 import "./app.scss";
@@ -23,14 +23,7 @@ type ActionProps = {
 const App = (props: StateProps & ActionProps): JSX.Element => {
     return (
         <div className="app">
-            <Router >
-                <TopNavigationBar currentApp={props.currentApp} onNavigationMenuClicked={props.onNavigationMenuClicked} />
-                <Switch>
-                    <Route exact path="/" component={MetadataAdminComponent} />
-                    <Route exact path={"/metadataAdmin"} component={MetadataAdminComponent} />
-                    <Route exact path="/channelAdmin" component={ChannelAdminComponent} />
-                </Switch>
-            </Router>
+            {makeMainRoutes()}
         </div>
     );
 };

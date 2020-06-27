@@ -23,12 +23,15 @@ const useStyles = makeStyles((theme) => ({
 type TopNavigationBarProps = {
     currentApp: RiksTvApp;
     onNavigationMenuClicked: (newApp: RiksTvApp) => void;
+    isLoggedIn: boolean;
+    onLogin: () => void;
+    onLogout: () => void;
 };
 
 const TopNavigationBar = (props: TopNavigationBarProps & RouteComponentProps): JSX.Element => {
     const classes = useStyles();
     const handleClick = (app: RiksTvApp): () => void => () => {
-        props.history.push("/" + app);
+        // props.history.push("/" + app);
         props.onNavigationMenuClicked(app);
     }
 
@@ -53,7 +56,12 @@ const TopNavigationBar = (props: TopNavigationBarProps & RouteComponentProps): J
                             Channel Admin
                             </Button>
                     </Typography>
-                    <Button color="inherit">Login</Button>
+                    {
+                        props.isLoggedIn ?
+                            <Button color="inherit">Login</Button>
+                            :
+                            <Button color="inherit">Logout</Button>
+                    }
                 </Toolbar>
             </AppBar>
         </div>

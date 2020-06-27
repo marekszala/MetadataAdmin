@@ -1,6 +1,6 @@
 import { AppState } from "./app";
 import { MetadataAdminState } from "./metadataAdmin";
-import { RouterState } from 'react-router-redux';
+import { RouterState } from 'connected-react-router';
 
 
 export interface RiksTvAdminPortal {

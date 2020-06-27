@@ -2,12 +2,13 @@ import { RiksTvAdminPortal } from "./../state";
 import { combineReducers, Reducer } from "redux";
 import { AppReducer } from "./../app";
 import { MetadataAdminReducer } from "./../metadataAdmin";
-import { routerReducer } from 'react-router-redux';
+import { connectRouter } from "connected-react-router";
+import { History } from "history"
 
-const reducer: Reducer<RiksTvAdminPortal> = combineReducers<RiksTvAdminPortal>({
+const createRootReducer = (history: History) => combineReducers<RiksTvAdminPortal>({
     appState: AppReducer,
     metadataAdmin: MetadataAdminReducer,
-    router: routerReducer
-});
+    router: connectRouter(history),
+})
 
-export default reducer;
+export default createRootReducer
