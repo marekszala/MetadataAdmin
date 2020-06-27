@@ -1,5 +1,5 @@
 import { RiksTvAdminPortal } from "./../state";
-import { combineReducers, Reducer } from "redux";
+import { combineReducers } from "redux";
 import { AppReducer } from "./../app";
 import { MetadataAdminReducer } from "./../metadataAdmin";
 import { connectRouter } from "connected-react-router";

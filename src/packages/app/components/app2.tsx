@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { Navbar, Button } from 'react-bootstrap';
-import { Route, Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import Home from './home';
-import Profile from './profile';
-class App extends React.Component<any> {
+import TopNavigationBar from "./topNavigation";
+import MetadataAdmin from "../../metadataAdmin/components/metadataAdmin"
+import ChannelAdmin from "../../channelAdmin/components/channelAdmin"
 
+class App extends React.Component<any> {
     componentDidMount() { }
 
     login = () => {
@@ -20,41 +21,11 @@ class App extends React.Component<any> {
         const { isAuthenticated } = this.props.auth;
         return (
             <div>
-                <Navbar>
-                    <Navbar.Brand>
+                <TopNavigationBar currentApp={this.props.currentApp} isLoggedIn={isAuthenticated()} onLogin={this.login} onLogout={this.logOut} onNavigationMenuClicked={this.props.onNavigationMenuClicked}></TopNavigationBar>
 
-                    </Navbar.Brand>
-                    <Link to={`/home`}>
-                        <Button className="btn-margin" variant="primary"> Home</Button>
-                    </Link>
-                    {!isAuthenticated() &&
-                        <Button className="btn-margin" onClick={this.login}> Log In</Button>}
-                    {isAuthenticated() &&
-                        <Link to={`/profile`}>
-                            <Button className="btn-margin" > Profile</Button>
-                        </Link>
-                    }
-                    {isAuthenticated() &&
-                        <Button
-                            variant="primary"
-                            className="btn-margin"
-                            onClick={this.renewToken}
-                        >
-                            Renew Token
-                        </Button>
-                    }
-                    {isAuthenticated() &&
-                        <Button
-                            variant="primary"
-                            className="btn-margin"
-                            onClick={this.logOut}
-                        >
-                            Log Out
-                        </Button>
-                    }
-                </Navbar>
-                <Route exact={true} path="/home" render={props => <Home auth={this.props.auth} {...this.props} />} />
-                <Route exact={true} path="/profile" render={props => <Profile auth={this.props.auth} {...this.props} />} />
+                <Route exact={true} path="/home" render={props => <Home />} />
+                <Route exact={true} path="/channelAdmin" render={props => isAuthenticated() ? <ChannelAdmin /> : <Home />} />
+                <Route exact={true} path="/metadataAdmin" render={props => isAuthenticated() ? <MetadataAdmin /> : <Home />} />
             </div>
         );
     }

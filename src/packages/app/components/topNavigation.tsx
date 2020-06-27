@@ -31,7 +31,6 @@ type TopNavigationBarProps = {
 const TopNavigationBar = (props: TopNavigationBarProps & RouteComponentProps): JSX.Element => {
     const classes = useStyles();
     const handleClick = (app: RiksTvApp): () => void => () => {
-        // props.history.push("/" + app);
         props.onNavigationMenuClicked(app);
     }
 
@@ -42,29 +41,38 @@ const TopNavigationBar = (props: TopNavigationBarProps & RouteComponentProps): J
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                         <MenuIcon />
                     </IconButton>
+
                     <Typography variant="h6" className={classes.title}>
-                        <Button
-                            color="inherit"
-                            variant={props.currentApp === "metadataAdmin" ? "outlined" : null}
-                            onClick={handleClick("metadataAdmin")}>
-                            Metadata Admin
-                            </Button>
-                        <Button
-                            color="inherit"
-                            variant={props.currentApp === "channelAdmin" ? "outlined" : null}
-                            onClick={handleClick("channelAdmin")}>
-                            Channel Admin
-                            </Button>
+                        {
+                            props.isLoggedIn && (
+                                <div>
+                                    <Button
+                                        component={Link} to="metadataAdmin"
+                                        color="inherit"
+                                        variant={props.currentApp === "metadataAdmin" ? "outlined" : null}>
+                                        Metadata Admin
+                                    </Button>
+
+                                    <Button
+                                        color="inherit"
+                                        component={Link} to="channelAdmin"
+                                        variant={props.currentApp === "channelAdmin" ? "outlined" : null}                                       >
+                                        Channel Admin
+                                    </Button>
+                                </div>
+                            )
+                        }
                     </Typography>
+
                     {
-                        props.isLoggedIn ?
-                            <Button color="inherit">Login</Button>
+                        !props.isLoggedIn ?
+                            <Button color="inherit" onClick={props.onLogin}>Login</Button>
                             :
-                            <Button color="inherit">Logout</Button>
+                            <Button color="inherit" onClick={props.onLogout}>Logout</Button>
                     }
                 </Toolbar>
             </AppBar>
-        </div>
+        </div >
     );
 }
 

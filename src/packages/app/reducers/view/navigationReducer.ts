@@ -1,7 +1,4 @@
-import {
-    buildReducer,
-    Action,
-} from "../../../shared";
+import { buildReducer } from "../../../shared";
 import { NavigationState } from "../../state";
 import { appNavigationMenuEntryClicked } from "../../actions/user/navigationAction";
 

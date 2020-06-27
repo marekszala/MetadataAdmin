@@ -1,6 +1,6 @@
 import * as React from "react";
 import { hot } from "react-hot-loader";
-import TopNavigationBar from "./topNavigation";
+
 import { RiksTvAdminPortal } from "./../../state";
 import { RiksTvApp } from "./../state";
 import { Dispatch } from "redux";
@@ -23,7 +23,7 @@ type ActionProps = {
 const App = (props: StateProps & ActionProps): JSX.Element => {
     return (
         <div className="app">
-            {makeMainRoutes()}
+            {makeMainRoutes({ onNavigationMenuClicked: props.onNavigationMenuClicked })}
         </div>
     );
 };

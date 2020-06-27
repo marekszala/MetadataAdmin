@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import Callback from './components/callback';
+import Callback from '../auth/callback';
 import App from './components/app2';
 import Auth from '../auth/auth';
 
@@ -11,6 +11,7 @@ const handleAuthentication = (prop: any) => {
         auth.handleAuthentication();
     }
 };
+
 const makeMainRoutes = () => (
     <Switch>
         <Route path="/" exact={true} render={props => !auth.isAuthenticated() ?
@@ -25,11 +26,9 @@ const makeMainRoutes = () => (
             }}
         />
 
-        <Route exact={true} path="/home" render={props => <App auth={auth} {...props} />} />
-        <Route exact={true} path="/profile" render={props =>
-            !auth.isAuthenticated() ?
-                <Redirect to="/home" />
-                : <App auth={auth} {...props} />} />
+        <Route exact={true} path="/home" render={props => <App auth={auth}  {...props} />} />
+        <Route exact={true} path="/metadataAdmin" render={props => <App auth={auth} currentApp="metadataAdmin" {...props} />} />
+        <Route exact={true} path="/channelAdmin" render={props => <App auth={auth} currentApp="channelAdmin"  {...props} />} />
 
     </Switch>
 );
