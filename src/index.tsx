@@ -11,7 +11,6 @@ render(
     <Provider store={Store}>
         <ConnectedRouter history={history}> { /* place ConnectedRouter under Provider */}
             {makeMainRoutes()}
-
         </ConnectedRouter>
     </Provider>,
     rootEl

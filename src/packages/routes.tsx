@@ -16,7 +16,7 @@ const makeMainRoutes = () => (
     <Switch>
         <Route path="/" exact={true} render={props => !auth.isAuthenticated() ?
             <Redirect to="/home" />
-            : <App auth={auth} {...props} currentApp="" />}
+            : <App auth={auth} {...props} />}
         />
         <Route
             path="/callback"
@@ -26,9 +26,7 @@ const makeMainRoutes = () => (
             }}
         />
 
-        <Route exact={false} path="/home" render={props => <App auth={auth} currentApp=""  {...props} />} />
-        <Route exact={true} path="/metadataAdmin" render={props => <App auth={auth} currentApp="metadataAdmin" {...props} />} />
-        <Route exact={true} path="/channelAdmin" render={props => <App auth={auth} currentApp="channelAdmin"  {...props} />} />
+        <Route exact={false} path="/" render={props => <App auth={auth}  {...props} />} />
 
     </Switch>
 );

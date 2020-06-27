@@ -1,22 +1,30 @@
 import * as React from "react";
 import { hot } from "react-hot-loader";
-
-import { RiksTvAdminPortal } from "./../../state";
 import { RiksTvApp } from "./../state";
-import { safeRender } from "./../../shared";
+import { safeRender, RoutePaths } from "./../../shared";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { MetadataAdminComponent } from "./../../metadataAdmin";
 import { ChannelAdminComponent } from "./../../channelAdmin";
 import TopNavigationBar from "./topNavigation";
 import Home from "./home";
-import { Link, withRouter, RouteComponentProps } from "react-router-dom";
+import { withRouter, RouteComponentProps } from "react-router-dom";
 
 import "./app.scss";
 
 type StateProps = {
-    currentApp: RiksTvApp;
     auth: any;
 };
+
+const mapPathNameToLocation = (pathname: string): RiksTvApp => {
+    if (pathname.indexOf(RoutePaths.MetadataAdminPath) > -1) {
+        return "metadataAdmin";
+    }
+    else if (pathname.indexOf(RoutePaths.ChannelAdminPath) > -1) {
+        return "channelAdmin";
+    }
+
+    return "";
+}
 
 const App = (props: StateProps & RouteComponentProps): JSX.Element => {
     const { isAuthenticated } = props.auth;
@@ -25,14 +33,14 @@ const App = (props: StateProps & RouteComponentProps): JSX.Element => {
     return (
         <div>
             <TopNavigationBar
-                currentApp={props.currentApp}
+                currentApp={mapPathNameToLocation(props.location.pathname)}
                 isLoggedIn={isAuthenticated()}
                 onLogin={login}
                 onLogout={logOut} ></TopNavigationBar>
 
-            <Route exact={true} path="/home" render={_ => <Home />} />
-            <Route exact={true} path="/channelAdmin" render={_ => isAuthenticated() ? <ChannelAdminComponent /> : <Home />} />
-            <Route exact={true} path="/metadataAdmin" render={_ => isAuthenticated() ? <MetadataAdminComponent /> : <Home />} />
+            <Route exact={true} path={RoutePaths.Home} render={_ => <Home />} />
+            <Route exact={true} path={RoutePaths.ChannelAdminPath} render={_ => isAuthenticated() ? <ChannelAdminComponent /> : <Home />} />
+            <Route exact={true} path={RoutePaths.MetadataAdminPath} render={_ => isAuthenticated() ? <MetadataAdminComponent /> : <Home />} />
         </div>
     );
 
