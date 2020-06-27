@@ -5,10 +5,13 @@ import { Provider } from 'react-redux';
 import Store, { history } from "./packages/store";
 const rootEl = document.getElementById("root");
 import { ConnectedRouter } from 'connected-react-router'
+import makeMainRoutes from './packages/routes';
+
 render(
     <Provider store={Store}>
         <ConnectedRouter history={history}> { /* place ConnectedRouter under Provider */}
-            <App />
+            {makeMainRoutes()}
+
         </ConnectedRouter>
     </Provider>,
     rootEl

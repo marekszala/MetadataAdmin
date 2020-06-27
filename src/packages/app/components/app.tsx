@@ -3,42 +3,40 @@ import { hot } from "react-hot-loader";
 
 import { RiksTvAdminPortal } from "./../../state";
 import { RiksTvApp } from "./../state";
-import { Dispatch } from "redux";
-import { connect } from "react-redux";
 import { safeRender } from "./../../shared";
-import { openRiksTVApp } from "./../actionCreators/navigationActionsCreator";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import makeMainRoutes from './../routes';
 import { MetadataAdminComponent } from "./../../metadataAdmin";
 import { ChannelAdminComponent } from "./../../channelAdmin";
+import TopNavigationBar from "./topNavigation";
+import Home from "./home";
+import { Link, withRouter, RouteComponentProps } from "react-router-dom";
+
 import "./app.scss";
 
 type StateProps = {
     currentApp: RiksTvApp;
-};
-type ActionProps = {
-    onNavigationMenuClicked: (RiksTvApp) => void;
+    auth: any;
 };
 
-const App = (props: StateProps & ActionProps): JSX.Element => {
+const App = (props: StateProps & RouteComponentProps): JSX.Element => {
+    const { isAuthenticated } = props.auth;
+    const login = () => props.auth.login();
+    const logOut = () => props.auth.logout();
     return (
-        <div className="app">
-            {makeMainRoutes({ onNavigationMenuClicked: props.onNavigationMenuClicked })}
+        <div>
+            <TopNavigationBar
+                currentApp={props.currentApp}
+                isLoggedIn={isAuthenticated()}
+                onLogin={login}
+                onLogout={logOut} ></TopNavigationBar>
+
+            <Route exact={true} path="/home" render={_ => <Home />} />
+            <Route exact={true} path="/channelAdmin" render={_ => isAuthenticated() ? <ChannelAdminComponent /> : <Home />} />
+            <Route exact={true} path="/metadataAdmin" render={_ => isAuthenticated() ? <MetadataAdminComponent /> : <Home />} />
         </div>
     );
-};
 
-const mapStateToProps = (rootState: RiksTvAdminPortal): StateProps => {
-    return {
-        currentApp: rootState.appState.view.navigationState.currentRoute
-    };
 };
-
-const mapDispatchToProps = (dispatch: Dispatch): ActionProps => {
-    return {
-        onNavigationMenuClicked: openRiksTVApp(dispatch)
-    };
-}
 
 declare let module: object;
-export default hot(module)(connect(mapStateToProps, mapDispatchToProps)(safeRender(App, "RiksTvAdminPortal")));
+export default hot(module)(withRouter(safeRender(App, "RiksTvAdminPortal")));

@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import { RiksTvApp } from "./../state";
-import { Link, withRouter, RouteComponentProps } from "react-router-dom";
+import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 3,
@@ -22,17 +22,13 @@ const useStyles = makeStyles((theme) => ({
 
 type TopNavigationBarProps = {
     currentApp: RiksTvApp;
-    onNavigationMenuClicked: (newApp: RiksTvApp) => void;
     isLoggedIn: boolean;
     onLogin: () => void;
     onLogout: () => void;
 };
 
-const TopNavigationBar = (props: TopNavigationBarProps & RouteComponentProps): JSX.Element => {
+const TopNavigationBar = (props: TopNavigationBarProps): JSX.Element => {
     const classes = useStyles();
-    const handleClick = (app: RiksTvApp): () => void => () => {
-        props.onNavigationMenuClicked(app);
-    }
 
     return (
         <div className={classes.root}>
@@ -76,4 +72,4 @@ const TopNavigationBar = (props: TopNavigationBarProps & RouteComponentProps): J
     );
 }
 
-export default withRouter(TopNavigationBar);
+export default TopNavigationBar;

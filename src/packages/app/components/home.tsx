@@ -5,7 +5,7 @@ const Home = (): JSX.Element => {
         <div className="container">
 
             <div>
-                <h3>Welcome in RiksTV tool</h3>
+                <h3>Welcome in RiksTV tool1</h3>
                 <p>
                     Please select the app if you logged in. If not please login in
                     </p>
